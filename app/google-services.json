@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "177964333236",
+    "firebase_url": "https://exmachina-bd482.firebaseio.com",
+    "project_id": "exmachina-bd482",
+    "storage_bucket": "exmachina-bd482.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177964333236:android:57491577e5e2cb79",
+        "android_client_info": {
+          "package_name": "com.android.ex_machina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177964333236-dddb26th3tu7t8j3n2b03ag0sagalsi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.ex_machina",
+            "certificate_hash": "fd05c125aa998eb3c54895c1098be3fbf0176856"
+          }
+        },
+        {
+          "client_id": "177964333236-0iacaputaf0ub9huvdpv5radscrkqvpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyKcSnv3UsgmFJGRa465uBKunf-o1HgBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177964333236-k65gmhcrd1fc3j0co1hnaq9cj8282us5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "177964333236-cf98ti13esoifisr3nl9613chrh7v2gc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "omar.exmachina"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

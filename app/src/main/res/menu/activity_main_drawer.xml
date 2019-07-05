@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/actual_user"
+            android:icon="@drawable/ic_actual_user"
+            android:title="@string/menu_actual_user" />
+        <item
+            android:id="@+id/nav_filiere"
+            android:icon="@drawable/ic_edit"
+            android:title="@string/menu_Edit_Filiere" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/menu_notifications" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info_black"
+            android:title="@string/menu_infos" />
+
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/menu_feedback" />
+    </group>
+
+    <item android:title="Réglages">
+        <menu>
+            <item
+                android:id="@+id/nav_deconnect"
+                android:icon="@drawable/ic_exit"
+                android:title="@string/menu_deco" />
+
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Paramètres" />
+        </menu>
+    </item>
+
+</menu>
