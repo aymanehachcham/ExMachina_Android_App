@@ -17,8 +17,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder> {
+public class HomeItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
+    private static final int TYPE_HEADER = 2;
+    private static final int TYPE_ITEM = 1;
 
     private List<ItemHome> articles;
     private Context context;
@@ -33,33 +36,71 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.card_home, parent, false);
-        return new MyViewHolder(view, onItemClickListener);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //View view = LayoutInflater.from(context).inflate(R.layout.card_home, parent, false);
+        //return new MyViewHolder(view, onItemClickListener);
+
+        Context context = parent.getContext();
+
+        if (viewType == TYPE_ITEM) {
+
+            final View view = LayoutInflater.from(context).inflate(R.layout.card_home, parent, false);
+            return new MyViewHolder(view, onItemClickListener);
+
+        } else if (viewType == TYPE_HEADER) {
+
+            final View view = LayoutInflater.from(context).inflate(R.layout.card_header, parent, false);
+            return new RecyclerHeaderViewHolder(view);
+        }
+
+        throw new RuntimeException("There is no type that matches the type " + viewType + " + make sure your using types    correctly");
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holders, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holders, int position) {
 
-        final MyViewHolder holder = holders;
-        ItemHome model = articles.get(position);
+        if(!isPositionHeader(position)){
 
-        holder.title.setText(model.getTitle());
-        holder.title.setTypeface(null, Typeface.BOLD);
+            final MyViewHolder holder = (MyViewHolder) holders;
+            ItemHome model = articles.get(position - 1);
 
-        holder.desc.setText(model.getDescription());
-        holder.profilePic.setImageResource(model.getProfile());
-        holder.cardBackground.setCardBackgroundColor(model.getBackground());
+            holder.title.setText(model.getTitle());
+            holder.title.setTypeface(null, Typeface.BOLD);
 
+            holder.desc.setText(model.getDescription());
+            holder.profilePic.setImageResource(model.getProfile());
+            holder.cardBackground.setCardBackgroundColor(model.getBackground());
+        }
+
+    }
+
+    //our old getItemCount()
+    public int getBasicItemCount() {
+        return articles == null ? 0 : articles.size();
     }
 
     @Override
     public int getItemCount() {
-        return articles.size();
+
+        return getBasicItemCount() + 1;
+    }
+
+    //added a method to check if given position is a header
+    private boolean isPositionHeader(int position) {
+        return position == 0;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
+    }
+
+    //added a method that returns viewType for a given position
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionHeader(position)) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
     }
 
     public interface OnItemClickListener {
@@ -90,6 +131,12 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
         @Override
         public void onClick(View v) {
             onItemClickListener.onItemClick(v, getAdapterPosition());
+        }
+    }
+
+    public class RecyclerHeaderViewHolder extends RecyclerView.ViewHolder {
+        public RecyclerHeaderViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }

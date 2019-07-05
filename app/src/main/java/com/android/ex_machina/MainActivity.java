@@ -9,18 +9,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.ex_machina.Helpers.HidingScrollListener;
 import com.android.ex_machina.Models.ItemHome;
 import com.android.ex_machina.Models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -48,14 +53,16 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleSignInClient mGoogleSignInClient;
 
-    public TextView nameDisplayed, emailDisplayed;
+    public TextView nameDisplayed, emailDisplayed, actualUserConnected;
     public CircleImageView image, avatarToolbar;
     public Toolbar toolbar;
+    public CardView cardToolbar;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<ItemHome> articles = new ArrayList<>();
     private HomeItemsAdapter adapter;
+    private BottomNavigationView bottomNavigationView;
 
 
     User actualUser;
@@ -66,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
+        cardToolbar = findViewById(R.id.cardToolbar);
         setSupportActionBar(toolbar);
 
 
@@ -75,13 +83,25 @@ public class MainActivity extends AppCompatActivity
         articles.add(new ItemHome("Scolarité", "Procédures et Contacts", R.drawable.ic_scolar, Color.parseColor("#25AF5F")));
         articles.add(new ItemHome("Informations Utiles", "Cherchez de l'aide", R.drawable.ic_info, Color.parseColor("#FF3A30")));
         articles.add(new ItemHome("Transport", "Tout vos circuits", R.drawable.ic_i, Color.parseColor("#5755D5")));
-        articles.add(new ItemHome("Bibliothèques", "Tout vos circuits", R.drawable.ic_book, Color.parseColor("#795548")));
+        articles.add(new ItemHome("Bibliothèques", "Trouvez vos livres", R.drawable.ic_book, Color.parseColor("#795548")));
 
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
+
+        recyclerView.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+                hideViews();
+            }
+
+            @Override
+            public void onShow() {
+                showViews();
+            }
+        });
 
         adapter = new HomeItemsAdapter(articles, MainActivity.this);
         recyclerView.setAdapter(adapter);
@@ -113,7 +133,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /* BottomNavigation Section */
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -144,12 +164,6 @@ public class MainActivity extends AppCompatActivity
                         startActivity(intent4);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
-
-                    case R.id.ic_profile:
-                        Intent intent5 = new Intent(MainActivity.this, ProfileActivity.class);
-                        startActivity(intent5);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        break;
                 }
 
 
@@ -159,6 +173,38 @@ public class MainActivity extends AppCompatActivity
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
 
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+
+            final View iconView = menuView.getChildAt(i).findViewById(com.google.android.material.R.id.icon);
+            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            // set your height here
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, displayMetrics);
+            // set your width here
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, displayMetrics);
+            iconView.setLayoutParams(layoutParams);
+        }
+
+    }
+
+    // Methods for Hiding and Showing Toolbar:
+    private void hideViews() {
+
+        // For the Card Toolbar to Hide
+        cardToolbar.animate().translationY(-cardToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+
+        // For the BottomNavigationView to Hide
+        bottomNavigationView.animate().translationY(bottomNavigationView.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+
+    }
+
+    private void showViews() {
+
+        // For the Card Toolbar to Show
+        cardToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+
+        // For the BottomNavigationView to Show
+        bottomNavigationView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
     }
 
     @Override
@@ -216,6 +262,7 @@ public class MainActivity extends AppCompatActivity
 
                 nameDisplayed.setText(actualUser.getName());
                 emailDisplayed.setText(actualUser.getEmail());
+
 
                 // Setting the Title Toolbar:
                 getSupportActionBar().setTitle("Hi " + name);

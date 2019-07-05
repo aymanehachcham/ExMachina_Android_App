@@ -50,12 +50,6 @@ public class OfflineActivity extends AppCompatActivity {
                     case R.id.ic_offline:
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
-
-                    case R.id.ic_profile:
-                        Intent intent5 = new Intent(OfflineActivity.this, ProfileActivity.class);
-                        startActivity(intent5);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        break;
                 }
 
 

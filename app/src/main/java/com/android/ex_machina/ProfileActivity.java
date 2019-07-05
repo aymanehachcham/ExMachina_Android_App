@@ -53,10 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(intent4);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
-
-                    case R.id.ic_profile:
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        break;
                 }
 
 

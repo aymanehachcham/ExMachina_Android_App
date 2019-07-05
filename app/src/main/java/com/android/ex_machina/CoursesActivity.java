@@ -52,12 +52,6 @@ public class CoursesActivity extends AppCompatActivity {
                         startActivity(intent4);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
-
-                    case R.id.ic_profile:
-                        Intent intent5 = new Intent(CoursesActivity.this, ProfileActivity.class);
-                        startActivity(intent5);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        break;
                 }
 
 
