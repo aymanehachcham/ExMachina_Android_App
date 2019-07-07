@@ -1,4 +1,4 @@
-package com.android.ex_machina;
+package com.android.ex_machina.Adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.ex_machina.Models.ItemHome;
+import com.android.ex_machina.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

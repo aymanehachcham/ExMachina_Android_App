@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +24,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.ex_machina.Adapters.HomeItemsAdapter;
 import com.android.ex_machina.Helpers.HidingScrollListener;
 import com.android.ex_machina.Models.ItemHome;
 import com.android.ex_machina.Models.User;
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity
 
         adapter = new HomeItemsAdapter(articles, MainActivity.this);
         recyclerView.setAdapter(adapter);
+
+        initClickListnerOnItemCards();
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -195,6 +197,28 @@ public class MainActivity extends AppCompatActivity
 
         // For the BottomNavigationView to Hide
         bottomNavigationView.animate().translationY(bottomNavigationView.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+
+    }
+
+
+    // Seeting the OnclickItemListener for each click on the Main Cards :
+    private void initClickListnerOnItemCards(){
+
+        adapter.setOnItemClickListener(new HomeItemsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
+
+                ItemHome article = articles.get(position);
+                intent.putExtra("title", article.getTitle());
+                intent.putExtra("Description", article.getDescription());
+                intent.putExtra("Img",  article.getProfile());
+                intent.putExtra("Background",  article.getBackground());
+
+
+                startActivity(intent);
+            }
+        });
 
     }
 
