@@ -19,4 +19,16 @@
 
     <dimen name="image_share">18dp</dimen>
     <dimen name="design_bottom_navigation_height" tools:override="true">54dp</dimen>
+
+
+
+
+    <!-- Intro Screen -->
+    <dimen name="dots_height">30dp</dimen>
+    <dimen name="dots_bottom_margin">20dp</dimen>
+    <dimen name="img_width">120dp</dimen>
+    <dimen name="img_height">120dp</dimen>
+    <dimen name="slide_title">25sp</dimen>
+    <dimen name="slide_desc">14sp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
 </resources>
