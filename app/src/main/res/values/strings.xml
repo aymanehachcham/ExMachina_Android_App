@@ -27,4 +27,14 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
+    <string name="next">Suivant</string>
+    <string name="skip">Passer</string>
+    <string name="start">Commencer</string>
+    <string name="title_slide1">Ex-Machina</string>
+    <string name="desc_slide1">Club Universitaire Scientifique qui regroupe des étudiants de l\'école d\'ingénierie de l\'Université Internationale de Casablanca</string>
+    <string name="title_slide2">Par,pour les étudiants</string>
+    <string name="desc_slide2">Retrouvez tous les supports de cours </string>
+    <string name="title_slide3">Au service des étudiants</string>
+    <string name="desc_slide3">L\'application qui vous aide tout au long de votre cursus universitaire</string>
+    <string name="home">HOME</string>
 </resources>
